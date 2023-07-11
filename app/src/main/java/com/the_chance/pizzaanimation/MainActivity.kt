@@ -1,4 +1,4 @@
-package com.pancake.pizzaanimation
+package com.the_chance.pizzaanimation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,20 +10,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.pancake.pizzaanimation.ui.theme.PizzaAnimationTheme
+import com.the_chance.pizzaanimation.ui.theme.PizzaAnimationTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            PizzaAnimationTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                }
-            }
+            PizzaAnimation()
         }
     }
 }
