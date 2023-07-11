@@ -1,4 +1,4 @@
-package com.pancake.pizzaanimation.ui.theme
+package com.the_chance.pizzaanimation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.pancake.pizzaanimation.ui.theme
+package com.the_chance.pizzaanimation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
