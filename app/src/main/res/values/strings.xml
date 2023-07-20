@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Pizza Animation</string>
+    <string name="customize_your_pizza">Customize Your Pizza</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="back">back</string>
+    <string name="favorite">favorite</string>
+    <string name="App_Name">Pizza</string>
+    <string name="_17">$17</string>
+    <string name="s">S</string>
+    <string name="m">M</string>
+    <string name="l">L</string>
 </resources>
