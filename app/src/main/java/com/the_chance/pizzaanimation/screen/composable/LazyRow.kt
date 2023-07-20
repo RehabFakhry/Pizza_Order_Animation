@@ -1,6 +1,7 @@
 package com.the_chance.pizzaanimation.screen.composable
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
@@ -29,25 +30,28 @@ fun LazyRawIngredient(
     viewModel: PizzaViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-    LazyRawContent(state = state.pizzas[pizza])
+    LazyRawContent(state = state.pizzas[pizza],  pizza, viewModel::onSelectIngredient,)
 }
 
 @Composable
 private fun LazyRawContent(
     state: PizzaUiState,
+    pizza: Int,
+    onClick: (Int, Int)-> Unit
 ) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(24.dp),
         contentPadding = PaddingValues(horizontal = 16.dp)
     ) {
         items(5) {
-            IngredientItem(state = state, it)
+            IngredientItem(state = state, it, pizza = pizza, onClick = onClick )
         }
     }
 }
 
 @Composable
-fun IngredientItem(state: PizzaUiState , index: Int) {
+fun IngredientItem(state: PizzaUiState , index: Int, onClick: (Int, Int) -> Unit,
+pizza: Int) {
     Card(
         modifier = Modifier,
         RoundedCornerShape(space32),
@@ -58,7 +62,8 @@ fun IngredientItem(state: PizzaUiState , index: Int) {
             contentDescription = null,
             modifier = Modifier
                 .size(65.dp)
-                .clip(CircleShape),
+                .clip(CircleShape)
+                .clickable{onClick(pizza, index)},
             contentScale = ContentScale.Crop,
         )
     }

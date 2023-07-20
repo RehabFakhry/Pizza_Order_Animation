@@ -1,10 +1,15 @@
 package com.the_chance.pizzaanimation.screen.composable
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,17 +35,19 @@ import com.the_chance.pizzaanimation.ui.theme.space8
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun PagerHorizontal(state: Pizza){
+fun PagerHorizontal(state: Pizza) {
     val pagerState = rememberPagerState()
 
     HorizontalImages(
         state = state,
         pagerState = pagerState,
-        modifier = Modifier.wrapContentSize().padding(top= space8)
+        modifier = Modifier
+            .wrapContentSize()
+            .padding(top = space8)
     )
 }
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
 @Composable
 fun HorizontalImages(
     pagerState: PagerState,
@@ -53,7 +60,7 @@ fun HorizontalImages(
         verticalAlignment = Alignment.CenterVertically,
         contentPadding = PaddingValues(horizontal = space32),
         modifier = modifier.fillMaxWidth(),
-    ) {page ->
+    ) { page ->
         val animatedScale by animateFloatAsState(
             targetValue = if (page == pagerState.currentPage) 1f else 0.7f,
             animationSpec = tween(durationMillis = 200)
@@ -61,19 +68,33 @@ fun HorizontalImages(
 
         val targetSize = when {
             state.pizzas[page].smallSelected -> animateDpAsState(190.dp)
-            state.pizzas[page].mediumSelected  -> animateDpAsState(220.dp)
-            state.pizzas[page].largeSelected  -> animateDpAsState(250.dp)
+            state.pizzas[page].mediumSelected -> animateDpAsState(220.dp)
+            state.pizzas[page].largeSelected -> animateDpAsState(250.dp)
             else -> animateDpAsState(220.dp)
         }
+        Box() {
+            Image(
+                painter = painterResource(id = state.pizzas[page].bread),
+                contentDescription = "",
+                modifier = Modifier
+                    .scale(animatedScale)
+                    .clip(MaterialTheme.shapes.extraSmall)
+                    .size(targetSize.value)
+                    .padding(start = space10)
+            )
+            state.pizzas[page].ingredients.forEach {
+                AnimatedVisibility(
+                    visible = it.ingredientSelected,
+                    enter = scaleIn(initialScale = 20f), exit = ExitTransition.None
+                ) {
 
-        Image(
-            painter = painterResource(id = state.pizzas[page].bread),
-            contentDescription = "",
-            modifier = Modifier
-                .scale(animatedScale)
-                .clip(MaterialTheme.shapes.extraSmall)
-                .size(targetSize.value)
-                .padding(start = space10)
-        )
+                    Image(
+                        painter = painterResource(id = it.ingredientGroup),
+                        contentDescription = null,
+                        modifier = Modifier
+                    )
+                }
+            }
+        }
     }
 }
