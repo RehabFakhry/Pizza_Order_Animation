@@ -35,9 +35,7 @@ import com.the_chance.pizzaanimation.ui.theme.space8
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun PagerHorizontal(state: Pizza) {
-    val pagerState = rememberPagerState()
-
+fun PagerHorizontal(state: Pizza, pagerState: PagerState) {
     HorizontalImages(
         state = state,
         pagerState = pagerState,

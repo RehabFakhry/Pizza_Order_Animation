@@ -32,6 +32,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.rememberPagerState
 import com.the_chance.pizzaanimation.R
 import com.the_chance.pizzaanimation.screen.composable.ButtonWithIcon
 import com.the_chance.pizzaanimation.screen.composable.CardSelected
@@ -48,14 +50,17 @@ import com.the_chance.pizzaanimation.ui.theme.textSize24
 import com.the_chance.pizzaanimation.ui.theme.textSize32
 
 
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
 @Composable
 fun PizzaScreen(
     viewModel: PizzaViewModel = hiltViewModel(),
-    pizzaId:Int,
+
 ) {
     val state by viewModel.state.collectAsState()
+    val pagerState = rememberPagerState()
+    val pizzaId = pagerState.currentPage
 
     Scaffold(
         topBar = {
@@ -96,7 +101,7 @@ fun PizzaScreen(
                         .fillMaxWidth()
                         .fillMaxHeight(.5f)
                 )
-                PagerHorizontal(state = state)
+                PagerHorizontal(state = state, pagerState = pagerState)
 
                 Box(modifier = Modifier){
                     Image(rememberAsyncImagePainter(model = state.pizzas), contentDescription = null )
