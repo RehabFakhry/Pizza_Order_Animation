@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
@@ -85,7 +86,7 @@ fun PizzaScreen(
         content = {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.padding(bottom = space200)
+                modifier = Modifier.padding(bottom = 280.dp)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.plate),
@@ -94,17 +95,17 @@ fun PizzaScreen(
                         .fillMaxWidth()
                         .fillMaxHeight(.5f)
                 )
-                PagerHorizontal(state = state, viewModel)
+                PagerHorizontal(state = state[])
 
                 Box(modifier = Modifier){
-                    Image(rememberAsyncImagePainter(model = state.ingredientImage), contentDescription = null )
+                    Image(rememberAsyncImagePainter(model = state.pizzas), contentDescription = null )
                 }
             }
-
             Column(
                 modifier = Modifier
-                    .padding(top = space480)
+                    .padding(top = 460.dp)
                     .fillMaxWidth()
+                    .wrapContentHeight()
                     .padding(horizontal = space16),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
@@ -117,11 +118,11 @@ fun PizzaScreen(
                     fontWeight = FontWeight.Bold
                 )
 
-                SpacerVertical(height = space16)
+                SpacerVertical(height = space24)
                 Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
-                    CardSelected(title = stringResource(R.string.s), viewModel::onClickSmallSize)
-                    CardSelected(title = stringResource(R.string.m), viewModel::onClickMediumSize)
-                    CardSelected(title = stringResource(R.string.l), viewModel::onClickLargeSize)
+                    CardSelected(title = stringResource(R.string.s), viewModel::onClickSmallSize() )
+                    CardSelected(title = stringResource(R.string.m), viewModel::onClickMediumSize())
+                    CardSelected(title = stringResource(R.string.l), viewModel::onClickLargeSize())
                 }
                 SpacerVertical(height = space24)
                 Text(
@@ -132,13 +133,13 @@ fun PizzaScreen(
                         .fillMaxWidth()
                         .padding(end = 240.dp)
                 )
-                SpacerVertical(height = space8)
+                SpacerVertical(height = space16)
                 LazyRawIngredient()
-                SpacerVertical(height = space8)
+                SpacerVertical(height = space16)
                 ButtonWithIcon(
                     text = stringResource(R.string.add_to_cart),
                     iconResId = R.drawable.icon_cart, {})
-                SpacerVertical(height = space24)
+                SpacerVertical(height = space16)
             }
         }
     )
