@@ -4,6 +4,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,13 +23,14 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.the_chance.pizzaanimation.R
 import com.the_chance.pizzaanimation.screen.PizzaUiState
+import com.the_chance.pizzaanimation.screen.PizzaViewModel
 import com.the_chance.pizzaanimation.ui.theme.space10
 import com.the_chance.pizzaanimation.ui.theme.space16
 import com.the_chance.pizzaanimation.ui.theme.space8
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun PagerHorizontal(state: PizzaUiState){
+fun PagerHorizontal(state: PizzaUiState,viewModel: PizzaViewModel){
     val pagerState = rememberPagerState()
     val images = listOf(
         R.drawable.bread_1, R.drawable.bread_2,
@@ -41,6 +43,7 @@ fun PagerHorizontal(state: PizzaUiState){
         images = images,
         modifier = Modifier.wrapContentSize().padding(top= space8)
     )
+
 }
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -77,6 +80,8 @@ fun HorizontalImages(
                 .clip(MaterialTheme.shapes.extraSmall)
                 .size(targetSize.value)
                 .padding(start = space10)
+                .clickable
+                { onClickImage(images[it % images.size]) }
         )
     }
 }

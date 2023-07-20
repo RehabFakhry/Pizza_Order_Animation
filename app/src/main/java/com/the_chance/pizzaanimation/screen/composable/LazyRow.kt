@@ -31,34 +31,32 @@ fun LazyRawIngredient(
     viewModel: PizzaViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    LazyRawContent(state = state)
+    val selectedIngredient = viewModel.selectedIngredient
+
+    LazyRawContent(state = state){ selectedIngredient ->
+        viewModel.setSelectedIngredient(selectedIngredient)}
 }
 
 @Composable
 private fun LazyRawContent(
-    state: PizzaUiState
+    state: PizzaUiState,
+    onItemClick: (IngredientUiState) -> Unit
 ) {
     LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(horizontal = 16.dp)
     ) {
         items(state.ingredients) {
-            IngredientItem(state = it, false)
+            IngredientItem(state = it, onItemClick)
         }
     }
 }
 
 @Composable
-fun IngredientItem(state: IngredientUiState, isSelected: Boolean) {
-    val cardColor = if (isSelected) {
-        BackgroundColor
-    } else {
-        Color.White
-    }
-
+fun IngredientItem(state: IngredientUiState, onItemClick: (IngredientUiState) -> Unit) {
     Card(
         modifier = Modifier,
         RoundedCornerShape(space32),
-        colors = CardDefaults.cardColors(cardColor)
+        colors = CardDefaults.cardColors(Color.White)
     ) {
         Image(
             painter = rememberAsyncImagePainter(model = state.image),
