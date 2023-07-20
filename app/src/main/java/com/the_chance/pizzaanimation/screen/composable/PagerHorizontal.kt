@@ -23,27 +23,19 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
-import com.the_chance.pizzaanimation.R
-import com.the_chance.pizzaanimation.screen.PizzaUiState
-import com.the_chance.pizzaanimation.screen.PizzaViewModel
+import com.the_chance.pizzaanimation.screen.Pizza
 import com.the_chance.pizzaanimation.ui.theme.space10
-import com.the_chance.pizzaanimation.ui.theme.space16
 import com.the_chance.pizzaanimation.ui.theme.space32
 import com.the_chance.pizzaanimation.ui.theme.space8
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun PagerHorizontal(state: PizzaUiState){
+fun PagerHorizontal(state: Pizza){
     val pagerState = rememberPagerState()
-    val images = listOf(
-        R.drawable.bread_1, R.drawable.bread_2,
-        R.drawable.bread_3,R.drawable.bread_4)
 
     HorizontalImages(
         state = state,
-        onClickImage = { },
         pagerState = pagerState,
-        images = images,
         modifier = Modifier.wrapContentSize().padding(top= space8)
     )
 }
@@ -51,41 +43,37 @@ fun PagerHorizontal(state: PizzaUiState){
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HorizontalImages(
-    onClickImage: (Any?) -> Unit,
     pagerState: PagerState,
-    images: List<Int>,
-    state: PizzaUiState,
+    state: Pizza,
     modifier: Modifier = Modifier,
 ) {
     HorizontalPager(
         state = pagerState,
-        count = images.size,
+        count = state.pizzas.size,
         verticalAlignment = Alignment.CenterVertically,
         contentPadding = PaddingValues(horizontal = space32),
         modifier = modifier.fillMaxWidth(),
-    ) {
+    ) {page ->
         val animatedScale by animateFloatAsState(
-            targetValue = if (it == pagerState.currentPage) 1f else 0.7f,
+            targetValue = if (page == pagerState.currentPage) 1f else 0.7f,
             animationSpec = tween(durationMillis = 200)
         )
 
         val targetSize = when {
-            state.smallSelected -> animateDpAsState(190.dp)
-            state.mediumSelected  -> animateDpAsState(220.dp)
-            state.largeSelected  -> animateDpAsState(250.dp)
+            state.pizzas[page].smallSelected -> animateDpAsState(190.dp)
+            state.pizzas[page].mediumSelected  -> animateDpAsState(220.dp)
+            state.pizzas[page].largeSelected  -> animateDpAsState(250.dp)
             else -> animateDpAsState(220.dp)
         }
 
         Image(
-            painter = painterResource(id = images[it % images.size]),
+            painter = painterResource(id = state.pizzas[page].bread),
             contentDescription = "",
             modifier = Modifier
                 .scale(animatedScale)
                 .clip(MaterialTheme.shapes.extraSmall)
                 .size(targetSize.value)
                 .padding(start = space10)
-                .clickable
-                { onClickImage(images[it % images.size]) }
         )
     }
 }

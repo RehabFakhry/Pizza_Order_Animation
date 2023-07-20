@@ -25,11 +25,12 @@ import com.the_chance.pizzaanimation.ui.theme.space24
 @Composable
 fun CardSelected(
     title: String,
-    onClick: () -> Unit,
+    onClick: (id: Int) -> Unit,
+    id: Int,
     ) {
     Card(
         modifier = Modifier.size(width = 60.dp, height = 30.dp)
-            .clickable { onClick() },
+            .clickable { onClick(id) },
         colors = CardDefaults.cardColors(containerColor = White),
         shape = CircleShape
     ) {
@@ -51,8 +52,4 @@ fun CardSelected(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun Preview() {
-    CardSelected("rrrr", {})
-}
+

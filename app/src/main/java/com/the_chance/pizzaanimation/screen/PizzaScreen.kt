@@ -52,7 +52,8 @@ import com.the_chance.pizzaanimation.ui.theme.textSize32
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PizzaScreen(
-    viewModel: PizzaViewModel = hiltViewModel()
+    viewModel: PizzaViewModel = hiltViewModel(),
+    pizzaId:Int,
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -95,7 +96,7 @@ fun PizzaScreen(
                         .fillMaxWidth()
                         .fillMaxHeight(.5f)
                 )
-                PagerHorizontal(state = state[])
+                PagerHorizontal(state = state)
 
                 Box(modifier = Modifier){
                     Image(rememberAsyncImagePainter(model = state.pizzas), contentDescription = null )
@@ -120,9 +121,9 @@ fun PizzaScreen(
 
                 SpacerVertical(height = space24)
                 Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
-                    CardSelected(title = stringResource(R.string.s), viewModel::onClickSmallSize() )
-                    CardSelected(title = stringResource(R.string.m), viewModel::onClickMediumSize())
-                    CardSelected(title = stringResource(R.string.l), viewModel::onClickLargeSize())
+                    CardSelected(title = stringResource(R.string.s), viewModel::onClickSmallSize, pizzaId )
+                    CardSelected(title = stringResource(R.string.m), viewModel::onClickMediumSize, pizzaId)
+                    CardSelected(title = stringResource(R.string.l), viewModel::onClickLargeSize, pizzaId)
                 }
                 SpacerVertical(height = space24)
                 Text(
@@ -134,7 +135,7 @@ fun PizzaScreen(
                         .padding(end = 240.dp)
                 )
                 SpacerVertical(height = space16)
-                LazyRawIngredient()
+                LazyRawIngredient(pizzaId)
                 SpacerVertical(height = space16)
                 ButtonWithIcon(
                     text = stringResource(R.string.add_to_cart),
@@ -145,8 +146,9 @@ fun PizzaScreen(
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewPizzaScreen() {
-    PizzaScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewPizzaScreen() {
+//    val id: Int
+//    PizzaScreen()
+//}

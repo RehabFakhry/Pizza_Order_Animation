@@ -37,11 +37,3 @@ val listOfIngredients = listOf(
     IngredientUiState(3, R.drawable.onion_1, false, R.drawable.onion),
     IngredientUiState(4, R.drawable.sausage_1, false, R.drawable.sausage),
 )
-
-
-
-//data class PizzaSize(
-//    val smallSelected: Boolean = false,
-//    val mediumSelected: Boolean = false,
-//    val largeSelected: Boolean = false,
-//)

@@ -19,20 +19,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
-import com.the_chance.pizzaanimation.screen.IngredientUiState
-import com.the_chance.pizzaanimation.screen.Pizza
 import com.the_chance.pizzaanimation.screen.PizzaUiState
 import com.the_chance.pizzaanimation.screen.PizzaViewModel
 import com.the_chance.pizzaanimation.ui.theme.space32
 
 @Composable
 fun LazyRawIngredient(
-    viewModel: PizzaViewModel = hiltViewModel(),
     pizza: Int,
+    viewModel: PizzaViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-//    val selectedIngredient = viewModel::onSelectIngredient
-
     LazyRawContent(state = state.pizzas[pizza])
 }
 
