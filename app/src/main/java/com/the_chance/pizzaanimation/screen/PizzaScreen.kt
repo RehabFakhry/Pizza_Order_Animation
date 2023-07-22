@@ -39,6 +39,7 @@ import com.the_chance.pizzaanimation.screen.composable.ButtonWithIcon
 import com.the_chance.pizzaanimation.screen.composable.CardSelected
 import com.the_chance.pizzaanimation.screen.composable.LazyRawIngredient
 import com.the_chance.pizzaanimation.screen.composable.PagerHorizontal
+import com.the_chance.pizzaanimation.screen.composable.SpacerHorizontal
 import com.the_chance.pizzaanimation.screen.composable.SpacerVertical
 import com.the_chance.pizzaanimation.ui.theme.space16
 import com.the_chance.pizzaanimation.ui.theme.space200
@@ -48,8 +49,6 @@ import com.the_chance.pizzaanimation.ui.theme.space480
 import com.the_chance.pizzaanimation.ui.theme.space8
 import com.the_chance.pizzaanimation.ui.theme.textSize24
 import com.the_chance.pizzaanimation.ui.theme.textSize32
-
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
@@ -109,7 +108,7 @@ fun PizzaScreen(
             }
             Column(
                 modifier = Modifier
-                    .padding(top = 460.dp)
+                    .padding(top = 420.dp)
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(horizontal = space16),
@@ -121,14 +120,25 @@ fun PizzaScreen(
                     modifier = Modifier.padding(top = space4),
                     text = stringResource(R.string._17),
                     fontSize = textSize32,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Medium
                 )
 
                 SpacerVertical(height = space24)
                 Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
-                    CardSelected(title = stringResource(R.string.s), viewModel::onClickSmallSize, pizzaId )
-                    CardSelected(title = stringResource(R.string.m), viewModel::onClickMediumSize, pizzaId)
-                    CardSelected(title = stringResource(R.string.l), viewModel::onClickLargeSize, pizzaId)
+                    CardSelected(
+                        title = stringResource(R.string.s),
+                        viewModel::onClickSmallSize,
+                        pizzaId, false)
+                    SpacerHorizontal(width = space8)
+                    CardSelected(
+                        title = stringResource(R.string.m),
+                        viewModel::onClickMediumSize,
+                        pizzaId, false)
+                    SpacerHorizontal(width = space8)
+                    CardSelected(
+                        title = stringResource(R.string.l),
+                        viewModel::onClickLargeSize,
+                        pizzaId, false)
                 }
                 SpacerVertical(height = space24)
                 Text(
@@ -141,7 +151,7 @@ fun PizzaScreen(
                 )
                 SpacerVertical(height = space16)
                 LazyRawIngredient(pizzaId)
-                SpacerVertical(height = space16)
+                SpacerVertical(height = space24)
                 ButtonWithIcon(
                     text = stringResource(R.string.add_to_cart),
                     iconResId = R.drawable.icon_cart, {})
@@ -151,9 +161,8 @@ fun PizzaScreen(
     )
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewPizzaScreen() {
-//    val id: Int
-//    PizzaScreen()
-//}
+@Preview(showBackground = true)
+@Composable
+fun PreviewPizzaScreen() {
+    PizzaScreen()
+}

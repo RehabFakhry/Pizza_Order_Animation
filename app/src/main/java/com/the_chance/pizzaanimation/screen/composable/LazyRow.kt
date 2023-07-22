@@ -22,7 +22,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.the_chance.pizzaanimation.screen.PizzaUiState
 import com.the_chance.pizzaanimation.screen.PizzaViewModel
+import com.the_chance.pizzaanimation.ui.theme.space16
+import com.the_chance.pizzaanimation.ui.theme.space24
 import com.the_chance.pizzaanimation.ui.theme.space32
+import com.the_chance.pizzaanimation.ui.theme.space4
 
 @Composable
 fun LazyRawIngredient(
@@ -40,18 +43,21 @@ private fun LazyRawContent(
     onClick: (Int, Int)-> Unit
 ) {
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(24.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp)
+        horizontalArrangement = Arrangement.spacedBy(space24),
+        contentPadding = PaddingValues(horizontal = space16)
     ) {
-        items(5) {
+        items(6) {
             IngredientItem(state = state, it, pizza = pizza, onClick = onClick )
         }
     }
 }
 
 @Composable
-fun IngredientItem(state: PizzaUiState , index: Int, onClick: (Int, Int) -> Unit,
-pizza: Int) {
+fun IngredientItem(
+    state: PizzaUiState,
+    index: Int,
+    onClick: (Int, Int) -> Unit,
+    pizza: Int) {
     Card(
         modifier = Modifier,
         RoundedCornerShape(space32),
@@ -60,11 +66,11 @@ pizza: Int) {
         Image(
             painter = rememberAsyncImagePainter(model = state.ingredients[index]),
             contentDescription = null,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(65.dp)
+                .size(70.dp)
                 .clip(CircleShape)
                 .clickable{onClick(pizza, index)},
-            contentScale = ContentScale.Crop,
         )
     }
 }

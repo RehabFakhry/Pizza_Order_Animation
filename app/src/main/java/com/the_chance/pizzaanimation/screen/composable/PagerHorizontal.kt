@@ -8,7 +8,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,15 +21,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import com.the_chance.pizzaanimation.R
 import com.the_chance.pizzaanimation.screen.Pizza
+import com.the_chance.pizzaanimation.ui.theme.space0
 import com.the_chance.pizzaanimation.ui.theme.space10
+import com.the_chance.pizzaanimation.ui.theme.space2
 import com.the_chance.pizzaanimation.ui.theme.space32
+import com.the_chance.pizzaanimation.ui.theme.space4
 import com.the_chance.pizzaanimation.ui.theme.space8
 
 @OptIn(ExperimentalPagerApi::class)
@@ -73,23 +78,23 @@ fun HorizontalImages(
         Box() {
             Image(
                 painter = painterResource(id = state.pizzas[page].bread),
-                contentDescription = "",
+                contentDescription = stringResource(R.string.bread),
                 modifier = Modifier
                     .scale(animatedScale)
                     .clip(MaterialTheme.shapes.extraSmall)
                     .size(targetSize.value)
-                    .padding(start = space10)
             )
             state.pizzas[page].ingredients.forEach {
                 AnimatedVisibility(
                     visible = it.ingredientSelected,
-                    enter = scaleIn(initialScale = 20f), exit = ExitTransition.None
+                    enter = scaleIn(initialScale = 20f),
+                    exit = ExitTransition.None,
                 ) {
-
                     Image(
                         painter = painterResource(id = it.ingredientGroup),
                         contentDescription = null,
-                        modifier = Modifier
+                        contentScale = ContentScale.Inside,
+                        modifier = Modifier.scale(0.7f)
                     )
                 }
             }
