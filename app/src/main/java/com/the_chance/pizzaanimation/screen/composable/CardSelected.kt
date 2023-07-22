@@ -20,7 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.the_chance.pizzaanimation.ui.theme.space2
 import com.the_chance.pizzaanimation.ui.theme.space24
+import com.the_chance.pizzaanimation.ui.theme.space4
 
 @Composable
 fun CardSelected(
@@ -29,10 +31,12 @@ fun CardSelected(
     id: Int,
     ) {
     Card(
-        modifier = Modifier.size(width = 60.dp, height = 30.dp)
+        modifier = Modifier
+            .size(width = 60.dp, height = 30.dp)
             .clickable { onClick(id) },
         colors = CardDefaults.cardColors(containerColor = White),
-        shape = CircleShape
+        shape = CircleShape,
+        elevation = CardDefaults.cardElevation(space4)
     ) {
         Column(
             modifier = Modifier.wrapContentSize(),
@@ -51,5 +55,3 @@ fun CardSelected(
 
     }
 }
-
-

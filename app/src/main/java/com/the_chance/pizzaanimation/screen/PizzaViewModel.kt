@@ -1,6 +1,5 @@
 package com.the_chance.pizzaanimation.screen
 
-import android.provider.SyncStateContract.Helpers.update
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.the_chance.pizzaanimation.R
