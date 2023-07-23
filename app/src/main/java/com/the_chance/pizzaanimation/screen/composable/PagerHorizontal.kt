@@ -28,14 +28,9 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import com.the_chance.pizzaanimation.R
 import com.the_chance.pizzaanimation.screen.Pizza
-import com.the_chance.pizzaanimation.ui.theme.space0
-import com.the_chance.pizzaanimation.ui.theme.space10
-import com.the_chance.pizzaanimation.ui.theme.space2
 import com.the_chance.pizzaanimation.ui.theme.space32
-import com.the_chance.pizzaanimation.ui.theme.space4
 import com.the_chance.pizzaanimation.ui.theme.space8
 
 @OptIn(ExperimentalPagerApi::class)

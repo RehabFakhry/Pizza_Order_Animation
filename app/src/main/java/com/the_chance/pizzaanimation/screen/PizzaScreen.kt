@@ -36,17 +36,14 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.the_chance.pizzaanimation.R
 import com.the_chance.pizzaanimation.screen.composable.ButtonWithIcon
-import com.the_chance.pizzaanimation.screen.composable.CardSelected
+import com.the_chance.pizzaanimation.screen.composable.ChipSelected
 import com.the_chance.pizzaanimation.screen.composable.LazyRawIngredient
 import com.the_chance.pizzaanimation.screen.composable.PagerHorizontal
 import com.the_chance.pizzaanimation.screen.composable.SpacerHorizontal
 import com.the_chance.pizzaanimation.screen.composable.SpacerVertical
 import com.the_chance.pizzaanimation.ui.theme.space16
-import com.the_chance.pizzaanimation.ui.theme.space200
 import com.the_chance.pizzaanimation.ui.theme.space24
 import com.the_chance.pizzaanimation.ui.theme.space4
-import com.the_chance.pizzaanimation.ui.theme.space480
-import com.the_chance.pizzaanimation.ui.theme.space8
 import com.the_chance.pizzaanimation.ui.theme.textSize24
 import com.the_chance.pizzaanimation.ui.theme.textSize32
 
@@ -55,8 +52,7 @@ import com.the_chance.pizzaanimation.ui.theme.textSize32
 @Composable
 fun PizzaScreen(
     viewModel: PizzaViewModel = hiltViewModel(),
-
-) {
+    ) {
     val state by viewModel.state.collectAsState()
     val pagerState = rememberPagerState()
     val pizzaId = pagerState.currentPage
@@ -102,8 +98,11 @@ fun PizzaScreen(
                 )
                 PagerHorizontal(state = state, pagerState = pagerState)
 
-                Box(modifier = Modifier){
-                    Image(rememberAsyncImagePainter(model = state.pizzas), contentDescription = null )
+                Box(modifier = Modifier) {
+                    Image(
+                        rememberAsyncImagePainter(model = state.pizzas),
+                        contentDescription = null
+                    )
                 }
             }
             Column(
@@ -125,21 +124,25 @@ fun PizzaScreen(
 
                 SpacerVertical(height = space24)
                 Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
-                    CardSelected(
-                        title = stringResource(R.string.s),
+                    ChipSelected(
+                        text = stringResource(R.string.s),
                         viewModel::onClickSmallSize,
-                        pizzaId, false)
-                    SpacerHorizontal(width = space8)
-                    CardSelected(
-                        title = stringResource(R.string.m),
+                        pizzaId, false
+                    )
+                    SpacerHorizontal(width = space16)
+                    ChipSelected(
+                        text = stringResource(R.string.m),
                         viewModel::onClickMediumSize,
-                        pizzaId, false)
-                    SpacerHorizontal(width = space8)
-                    CardSelected(
-                        title = stringResource(R.string.l),
+                        pizzaId, false
+                    )
+                    SpacerHorizontal(width = space16)
+                    ChipSelected(
+                        text = stringResource(R.string.l),
                         viewModel::onClickLargeSize,
-                        pizzaId, false)
+                        pizzaId, false
+                    )
                 }
+
                 SpacerVertical(height = space24)
                 Text(
                     text = stringResource(R.string.customize_your_pizza),
@@ -149,7 +152,7 @@ fun PizzaScreen(
                         .fillMaxWidth()
                         .padding(end = 240.dp)
                 )
-                SpacerVertical(height = space16)
+                SpacerVertical(height = space24)
                 LazyRawIngredient(pizzaId)
                 SpacerVertical(height = space24)
                 ButtonWithIcon(

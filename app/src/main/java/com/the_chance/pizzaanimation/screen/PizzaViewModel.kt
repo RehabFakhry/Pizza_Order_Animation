@@ -1,6 +1,5 @@
 package com.the_chance.pizzaanimation.screen
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.the_chance.pizzaanimation.R
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +24,7 @@ class PizzaViewModel @Inject constructor() : ViewModel() {
                 listOf(
                     R.drawable.basil_2,
                     R.drawable.broccoli_1,
-                    R.drawable.mushroom_2,
+                    R.drawable.mushroom_5,
                     R.drawable.onion_3,
                     R.drawable.sausage_3,
                 )

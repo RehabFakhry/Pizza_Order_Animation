@@ -48,7 +48,7 @@ private fun LazyRawContent(
     onClick: (Int, Int) -> Unit
 ) {
     LazyRow(
-        modifier = Modifier.fillMaxWidth(), // Set the width to fill the available space
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(space24),
         contentPadding = PaddingValues(horizontal = space16)
     ) {
@@ -71,20 +71,20 @@ fun IngredientItem(
 
     Card(
         modifier = Modifier
-            .size(80.dp) // Increase the size to fit the image properly
+            .size(80.dp)
             .clip(CircleShape)
             .clickable {
-                if (isSelected) {
-                    selectedIngredientIndex = -1
+                selectedIngredientIndex = if (isSelected) {
+                    -1
                 } else {
-                    selectedIngredientIndex = index
+                    index
                 }
                 onClick(pizza, index)
             },
         RoundedCornerShape(space32),
         colors = if (isSelected) {
             CardDefaults.cardColors(BackgroundColor)
-        } else{
+        } else {
             CardDefaults.cardColors(Color.White)
         }
     ) {
