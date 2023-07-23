@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
@@ -20,12 +22,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
+import com.the_chance.pizzaanimation.screen.Pizza
 import com.the_chance.pizzaanimation.screen.PizzaUiState
 import com.the_chance.pizzaanimation.screen.PizzaViewModel
 import com.the_chance.pizzaanimation.ui.theme.space16
 import com.the_chance.pizzaanimation.ui.theme.space24
 import com.the_chance.pizzaanimation.ui.theme.space32
-import com.the_chance.pizzaanimation.ui.theme.space4
 
 @Composable
 fun LazyRawIngredient(
@@ -33,33 +35,38 @@ fun LazyRawIngredient(
     viewModel: PizzaViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-    LazyRawContent(state = state.pizzas[pizza],  pizza, viewModel::onSelectIngredient,)
+    LazyRawContent(state = state,  pizza, viewModel::onSelectIngredient,)
 }
 
 @Composable
 private fun LazyRawContent(
-    state: PizzaUiState,
+    state: Pizza,
     pizza: Int,
     onClick: (Int, Int)-> Unit
 ) {
     LazyRow(
+        modifier = Modifier.fillMaxWidth(), // Set the width to fill the available space
         horizontalArrangement = Arrangement.spacedBy(space24),
         contentPadding = PaddingValues(horizontal = space16)
     ) {
-        items(6) {
-            IngredientItem(state = state, it, pizza = pizza, onClick = onClick )
+        items(5) {
+            IngredientItem(state = state, index = it, pizza = pizza, onClick = onClick )
         }
     }
 }
 
 @Composable
 fun IngredientItem(
-    state: PizzaUiState,
+    state: Pizza,
     index: Int,
     onClick: (Int, Int) -> Unit,
-    pizza: Int) {
+    pizza: Int,
+) {
     Card(
-        modifier = Modifier,
+        modifier = Modifier
+            .size(70.dp) // Increase the size to fit the image properly
+            .clip(CircleShape)
+            .clickable { onClick(pizza, index) },
         RoundedCornerShape(space32),
         colors = CardDefaults.cardColors(Color.White)
     ) {
@@ -68,9 +75,7 @@ fun IngredientItem(
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(70.dp)
-                .clip(CircleShape)
-                .clickable{onClick(pizza, index)},
+                .fillMaxSize()
         )
     }
 }

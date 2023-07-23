@@ -98,7 +98,7 @@ fun PizzaScreen(
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(.5f)
+                        .fillMaxHeight(.54f)
                 )
                 PagerHorizontal(state = state, pagerState = pagerState)
 

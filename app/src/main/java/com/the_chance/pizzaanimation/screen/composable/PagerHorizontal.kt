@@ -40,7 +40,10 @@ import com.the_chance.pizzaanimation.ui.theme.space8
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun PagerHorizontal(state: Pizza, pagerState: PagerState) {
+fun PagerHorizontal(
+    state: Pizza,
+    pagerState: PagerState
+) {
     HorizontalImages(
         state = state,
         pagerState = pagerState,
@@ -71,11 +74,11 @@ fun HorizontalImages(
 
         val targetSize = when {
             state.pizzas[page].smallSelected -> animateDpAsState(190.dp)
-            state.pizzas[page].mediumSelected -> animateDpAsState(220.dp)
-            state.pizzas[page].largeSelected -> animateDpAsState(250.dp)
-            else -> animateDpAsState(220.dp)
+            state.pizzas[page].mediumSelected -> animateDpAsState(230.dp)
+            state.pizzas[page].largeSelected -> animateDpAsState(260.dp)
+            else -> animateDpAsState(230.dp)
         }
-        Box() {
+        Box(contentAlignment = Alignment.Center) {
             Image(
                 painter = painterResource(id = state.pizzas[page].bread),
                 contentDescription = stringResource(R.string.bread),
@@ -94,7 +97,7 @@ fun HorizontalImages(
                         painter = painterResource(id = it.ingredientGroup),
                         contentDescription = null,
                         contentScale = ContentScale.Inside,
-                        modifier = Modifier.scale(0.7f)
+                        modifier = Modifier.scale(0.6f)
                     )
                 }
             }
