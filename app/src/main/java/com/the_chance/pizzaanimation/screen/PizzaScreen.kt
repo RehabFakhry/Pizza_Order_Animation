@@ -52,7 +52,8 @@ import com.the_chance.pizzaanimation.ui.theme.textSize32
 @Composable
 fun PizzaScreen(
     viewModel: PizzaViewModel = hiltViewModel(),
-    ) {
+    )
+{
     val state by viewModel.state.collectAsState()
     val pagerState = rememberPagerState()
     val pizzaId = pagerState.currentPage
@@ -133,7 +134,7 @@ fun PizzaScreen(
                     ChipSelected(
                         text = stringResource(R.string.m),
                         viewModel::onClickMediumSize,
-                        pizzaId, false
+                        pizzaId,false
                     )
                     SpacerHorizontal(width = space16)
                     ChipSelected(
