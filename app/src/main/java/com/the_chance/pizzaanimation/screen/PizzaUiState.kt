@@ -3,8 +3,9 @@ package com.the_chance.pizzaanimation.screen
 import com.the_chance.pizzaanimation.R
 
 data class Pizza(
-    val pizzas: List<PizzaUiState> = breads
-)
+    val pizzas: List<PizzaUiState> = breads,
+    val ingredients: List<Int> = emptyList(),
+    )
 
 data class PizzaUiState(
     val bread: Int,

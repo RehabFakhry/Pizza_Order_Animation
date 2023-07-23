@@ -14,6 +14,25 @@ class PizzaViewModel @Inject constructor() : ViewModel() {
     private val _state = MutableStateFlow(Pizza())
     val state = _state.asStateFlow()
 
+    init {
+        getAllIngredient()
+    }
+
+    private fun getAllIngredient() {
+        _state.update {
+            it.copy(
+                ingredients =
+                listOf(
+                    R.drawable.basil_2,
+                    R.drawable.broccoli_1,
+                    R.drawable.mushroom_3,
+                    R.drawable.onion_3,
+                    R.drawable.sausage_3,
+                )
+            )
+        }
+    }
+
     fun onSelectIngredient(pizzaId: Int, ingredientId: Int) {
         _state.update { pizza ->
             pizza.copy(
