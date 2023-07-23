@@ -25,7 +25,7 @@ class PizzaViewModel @Inject constructor() : ViewModel() {
                 listOf(
                     R.drawable.basil_2,
                     R.drawable.broccoli_1,
-                    R.drawable.mushroom_3,
+                    R.drawable.mushroom_2,
                     R.drawable.onion_3,
                     R.drawable.sausage_3,
                 )

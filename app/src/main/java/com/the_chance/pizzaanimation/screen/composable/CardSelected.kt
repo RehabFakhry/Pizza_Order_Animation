@@ -9,12 +9,16 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.Blue
+import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.the_chance.pizzaanimation.ui.theme.Purple80
 import com.the_chance.pizzaanimation.ui.theme.space0
 import com.the_chance.pizzaanimation.ui.theme.space4
 import com.the_chance.pizzaanimation.ui.theme.space8
@@ -26,14 +30,22 @@ fun CardSelected(
     id: Int,
     isSelected: Boolean,
 ) {
-    val elevationCard = if (isSelected) space8 else space0
     Card(
         modifier = Modifier
             .size(width = 45.dp, height = 30.dp)
             .clickable { onClick(id) },
-        colors = CardDefaults.cardColors(White),
+//        colors = CardDefaults.cardColors(White),
+        colors = if (isSelected) {
+            CardDefaults.cardColors(Blue)
+        } else {
+            CardDefaults.cardColors(LightGray)
+        },
         shape = CircleShape,
-        elevation = CardDefaults.cardElevation(space4)
+        elevation = if(isSelected) {
+            CardDefaults.cardElevation(space4)
+        } else {
+            CardDefaults.cardElevation(space0)
+        }
     ) {
         Text(
             text = title,
