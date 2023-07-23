@@ -1,6 +1,7 @@
 package com.the_chance.pizzaanimation.screen
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,11 +9,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,8 +29,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -57,6 +66,11 @@ fun PizzaScreen(
     val state by viewModel.state.collectAsState()
     val pagerState = rememberPagerState()
     val pizzaId = pagerState.currentPage
+    val offset by animateDpAsState(
+        targetValue =
+        if(state.pizzas[pagerState.currentPage].smallSelected) (-60).dp
+        else if(state.pizzas[pagerState.currentPage].mediumSelected) 0.dp
+        else (60).dp )
 
     Scaffold(
         topBar = {
@@ -124,26 +138,35 @@ fun PizzaScreen(
                 )
 
                 SpacerVertical(height = space24)
-                Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
-                    ChipSelected(
-                        text = stringResource(R.string.s),
-                        viewModel::onClickSmallSize,
-                        pizzaId, false
-                    )
-                    SpacerHorizontal(width = space16)
-                    ChipSelected(
-                        text = stringResource(R.string.m),
-                        viewModel::onClickMediumSize,
-                        pizzaId,false
-                    )
-                    SpacerHorizontal(width = space16)
-                    ChipSelected(
-                        text = stringResource(R.string.l),
-                        viewModel::onClickLargeSize,
-                        pizzaId, false
-                    )
+                Box(modifier = Modifier) {
+                    Card(modifier = Modifier
+                        .size(45.dp)
+                        .align(Alignment.Center)
+                        .offset (x= offset),
+                        shape = CircleShape,
+                        elevation = CardDefaults.cardElevation(20.dp),
+                        colors = CardDefaults.cardColors(Color.White),
+                    ){}
+                    Row(modifier = Modifier, horizontalArrangement = Arrangement.Center) {
+                        ChipSelected(
+                            text = stringResource(R.string.s),
+                            viewModel::onClickSmallSize,
+                            pizzaId, false
+                        )
+                        SpacerHorizontal(width = space16)
+                        ChipSelected(
+                            text = stringResource(R.string.m),
+                            viewModel::onClickMediumSize,
+                            pizzaId,false
+                        )
+                        SpacerHorizontal(width = space16)
+                        ChipSelected(
+                            text = stringResource(R.string.l),
+                            viewModel::onClickLargeSize,
+                            pizzaId, false
+                        )
+                    }
                 }
-
                 SpacerVertical(height = space24)
                 Text(
                     text = stringResource(R.string.customize_your_pizza),

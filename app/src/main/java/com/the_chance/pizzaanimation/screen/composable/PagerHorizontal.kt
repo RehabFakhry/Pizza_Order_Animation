@@ -71,7 +71,7 @@ fun HorizontalImages(
             state.pizzas[page].smallSelected -> animateDpAsState(190.dp)
             state.pizzas[page].mediumSelected -> animateDpAsState(230.dp)
             state.pizzas[page].largeSelected -> animateDpAsState(260.dp)
-            else -> animateDpAsState(230.dp)
+            else -> animateDpAsState(260.dp)
         }
         Box(contentAlignment = Alignment.Center) {
             Image(
